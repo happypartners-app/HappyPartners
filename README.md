@@ -1,143 +1,116 @@
-**Language:** [English](./README.md) · [繁體中文](./README.zh-TW.md) · [简体中文](./README.zh-CN.md)
+<h1 align="center">HappyPartners</h1>
 
-```
-========================================================
-  HappyPartners
-========================================================
+<p align="center">
+  <strong>Your AI team, finally in one workspace.</strong><br>
+  Less shuffling. More collaboration.
+</p>
 
-Your AI team, finally in one workspace.
-Less shuffling. More collaboration.
+<p align="center">
+  <a href="https://happypartners.app">Website</a> •
+  <a href="https://happypartners.app">Join the Waitlist</a> •
+  <a href="./README.zh-TW.md">繁體中文</a> •
+  <a href="./README.zh-CN.md">简体中文</a>
+</p>
 
-Website: https://happypartners.app
+<p align="center">
+  <img src="https://happypartners.app/hero-shot.png" alt="HappyPartners workspace" width="860">
+</p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-Apple%20Silicon-000000?logo=apple&logoColor=white" alt="macOS Apple Silicon">
+  <img src="https://img.shields.io/badge/Status-Beta%20(invite--only)-blue" alt="Status Beta">
+  <img src="https://img.shields.io/badge/Signed%20%2B%20Notarized-%E2%9C%93-success" alt="Signed + Notarized">
+  <img src="https://img.shields.io/badge/License-Proprietary-lightgrey" alt="License">
+</p>
 
-═══════════════════════════════════════════════════════════
-  About
-═══════════════════════════════════════════════════════════
+---
 
-HappyPartners is a native macOS app that puts multiple AI
-platforms into one workspace — like moderating a group chat
-where each participant happens to be a different AI.
+## ✨ About
 
-Supports 16 AI platforms (up to 4 visible on screen at once).
-Send a prompt once, compare answers side by side, drag replies
-between AIs to hand off context. All conversations stay local.
+HappyPartners is a native macOS app that puts multiple AI platforms into one workspace — like moderating a group chat where each participant happens to be a different AI.
 
-Not a browser extension. Not a web app. Not an API proxy.
-You sign in with your own AI subscriptions. Your data lives
-on your Mac.
+Supports **16 AI platforms** (up to **4 visible on screen** at once). Send a prompt once, compare answers side by side, drag replies between AIs to hand off context. All conversations stay local.
 
+Not a browser extension. Not a web app. Not an API proxy. You sign in with your own AI subscriptions. Your data lives on your Mac.
 
-═══════════════════════════════════════════════════════════
-  Who it's for
-═══════════════════════════════════════════════════════════
+## 🎥 Demo
 
-Not for people who use AI occasionally. This is for people
-who actually work with multiple AIs every day — creators,
-designers, engineers, PMs, researchers, translators, writers,
-consultants — anyone who regularly needs to compare answers
-between AIs, hand off context, or keep scattered threads
-organized.
+> Drop a demo video here — GitHub auto-hosts MP4 files dragged into the editor.
 
+## 🎯 Who it's for
 
-═══════════════════════════════════════════════════════════
-  Key features
-═══════════════════════════════════════════════════════════
+Not for people who use AI occasionally. This is for people who actually work with multiple AIs every day:
 
-One workspace, your entire AI team
-  Up to 4 AI windows side by side sharing a single composer.
-  Send to all at once, or use @ to target specific ones.
+- **Creators, designers, engineers, PMs**
+- **Researchers, translators, writers, consultants**
+- Anyone who regularly compares answers between AIs, hands off context, or keeps scattered threads organized
 
-Seamless cross-AI handoff
-  Alt + drag any reply onto another AI to relay it, or
-  broadcast to every other AI on screen. No copy-paste.
+## 🧠 Key features
 
-Your accounts. Your data. Your Mac.
-  Log in with your existing AI subscriptions. No API keys,
-  no platform fees, no middleman reading your conversations.
-  Everything stored locally.
+### One workspace, your entire AI team
+Up to 4 AI windows side by side sharing a single composer. Send to all at once, or use `@` to target specific ones.
 
-Built for daily work
-  Archive conversations into projects, each with its own AI
-  lineup and layout. Auto-saved drafts. Fast full-text search
-  (Chinese-friendly via FTS5 trigram) to find old threads.
+### Seamless cross-AI handoff
+Hold `Alt` and drag any reply onto another AI to relay it, or broadcast to every other AI on screen. No copy-paste.
 
+### Your accounts. Your data. Your Mac.
+Log in with your existing AI subscriptions. No API keys, no platform fees, no middleman reading your conversations. Everything stored locally.
 
-═══════════════════════════════════════════════════════════
-  Supported platforms
-═══════════════════════════════════════════════════════════
+### Built for daily work
+Archive conversations into projects, each with its own AI lineup and layout. Auto-saved drafts. Fast full-text search (Chinese-friendly via FTS5 trigram) to find old threads.
 
-ChatGPT · Claude · Gemini · Grok · Perplexity · Copilot · AI Studio ·
-Mistral · DeepSeek · Kimi · Qwen · Yuanbao · Doubao · MiMo · Z.ai ·
-ChatGLM
+## 🌐 Supported platforms
 
-UI available in Traditional Chinese, Simplified Chinese, and
-English. Platform names switch with the UI language.
+**16 platforms** available. UI in English, 繁體中文, 简体中文 — platform names switch with the UI language.
 
+ChatGPT · Claude · Gemini · Grok · Perplexity · Copilot · AI Studio · Mistral · DeepSeek · Kimi · Qwen · Yuanbao · Doubao · MiMo · Z.ai · ChatGLM
 
-═══════════════════════════════════════════════════════════
-  How it compares
-═══════════════════════════════════════════════════════════
+## ⚖️ How it compares
 
-HappyPartners doesn't provide AI models or proxy their APIs.
-You use each platform's official service with your own
-account — we just unify the way you operate them.
+HappyPartners doesn't provide AI models or proxy their APIs. You use each platform's official service with your own account — we just unify the way you operate them.
 
-  · No extra token billing
-  · No additional API layer to maintain
-  · No third party sees your conversation content
+- ✅ **No extra token billing** — your AI subscriptions stay the same
+- ✅ **No additional API layer** to maintain
+- ✅ **No third party** sees your conversation content
 
-The AI subscriptions you already pay for stay the same.
-HappyPartners only changes the experience of running them
-together.
+## 📦 Install
 
+<p>
+  <a href="https://happypartners.app">
+    <img src="https://img.shields.io/badge/Join%20the%20Waitlist-→-blue?style=for-the-badge" alt="Join Waitlist" height="40">
+  </a>
+</p>
 
-═══════════════════════════════════════════════════════════
-  About this repository
-═══════════════════════════════════════════════════════════
+Currently in **invite-only Beta**. Visit [happypartners.app](https://happypartners.app) to join the waitlist. Once your invite arrives, you'll receive a license key by email with the DMG download link.
 
-This is the public repository for HappyPartners.
-Source code is private (closed source). This repo exists
-for:
+**Requirements**: macOS 13+ · Apple Silicon · existing AI subscriptions for the platforms you want to use.
 
-  · Release notes and version updates
-  · Bug reports and feature requests (GitHub Issues)
-  · Product-related documentation
+## 💬 Feedback & support
 
+Two channels:
 
-═══════════════════════════════════════════════════════════
-  Feedback & support
-═══════════════════════════════════════════════════════════
+- **[GitHub Issues](https://github.com/happypartners-app/HappyPartners/issues)** — bugs, feature requests, discussion
+- **In-app: Settings → Report a bug** — auto-attaches debug log to an email draft
 
-Two feedback channels:
+HappyPartners is developed and maintained by one person. Response times aren't guaranteed, but **every message gets read**. Repeat questions may get rolled into an FAQ or a future release note rather than individual replies.
 
-  · GitHub Issues — for bugs, feature requests, discussion
-  · In-app: Settings → Report a bug — auto-attaches debug log
+Whether to open an official community (Discord / Telegram) is still TBD, depending on real usage and maintenance load.
 
-HappyPartners is developed and maintained by one person.
-Response times aren't guaranteed, but every message gets
-read. Repeat questions may get rolled into an FAQ or a
-future release note rather than individual replies.
+## 📍 Current status
 
-Whether to open an official community (Discord / Telegram)
-is still TBD, depending on real usage and maintenance load.
+| | |
+|---|---|
+| Phase | Beta, invite-only |
+| Platform | macOS (Apple Silicon) |
+| Distribution | Signed + notarized DMG |
+| Pricing | Free during Beta |
 
+## 📄 License
 
-═══════════════════════════════════════════════════════════
-  Current status
-═══════════════════════════════════════════════════════════
+Proprietary. Not open source. Source code is private; this repository is for release notes, issues, and product documentation.
 
-Beta, invite-only · macOS Apple Silicon · signed + notarized
-DMG · free during Beta
+---
 
-Join the waitlist at https://happypartners.app.
-
-
-═══════════════════════════════════════════════════════════
-  License
-═══════════════════════════════════════════════════════════
-
-Proprietary. Not open source.
-
-========================================================
-```
+<p align="center">
+  <sub>Made independently · <a href="mailto:hello@happypartners.app">hello@happypartners.app</a></sub>
+</p>
