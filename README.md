@@ -35,7 +35,10 @@ Not a browser extension. Not a web app. Not an API proxy. You sign in with your 
 
 ## 🎥 Demo
 
-> Drop a demo video here — GitHub auto-hosts MP4 files dragged into the editor.
+<video src="https://video.happypartners.app/video.mp4" controls width="860" poster="https://happypartners.app/demo-poster.jpg">
+  Your browser doesn't support embedded video.
+  <a href="https://video.happypartners.app/video.mp4">Watch the demo</a>.
+</video>
 
 ## 🎯 Who it's for
 
