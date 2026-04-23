@@ -5,6 +5,30 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.5.5] — 2026-04-24
+
+### Changed
+- **Copy All rewritten to live-extract DOM.** No longer depends on the
+  done-detection signal — what you see on screen is what you get.
+- **Copy All historical conversation fallback.** When live DOM has no
+  content (e.g. loaded past session, webview not on original URL),
+  falls back to stored SQLite materials so you still get the response.
+
+### Added
+- **Claude Artifact detection.** Side panel content extracted when
+  open; closed panel surfaces a status-line hint instead of polluting
+  the copied text.
+- **Toolbar safety timeout.** Copy / Download buttons now auto-recover
+  after 15 seconds if a webview call hangs.
+
+### Fixed
+- **Gemini UI chrome excluded** from extracted text (顯示思路, Gemini said,
+  +N citations, sources list, footnote superscripts).
+- **ChatGPT mid-stream partial captures.** STREAM_END signal now
+  re-probes after 1.5s to confirm streaming actually stopped, so
+  transient DOM mutations during reasoning transitions no longer
+  trip a false "done".
+
 ## [0.5.4] — 2026-04-23
 
 ### Fixed
