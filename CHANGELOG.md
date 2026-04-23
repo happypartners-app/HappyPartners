@@ -5,6 +5,11 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.5.4] — 2026-04-23
+
+### Fixed
+- **Cmd+R in Focus mode** now only reloads the focused AI, not all 4 visible AIs. Background AIs mid-generation are no longer killed when you reload the one you're currently looking at. Normal multi-pane mode behavior unchanged.
+
 
 ## [0.5.3] — 2026-04-22
 
