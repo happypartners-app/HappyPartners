@@ -35,10 +35,7 @@ Not a browser extension. Not a web app. Not an API proxy. You sign in with your 
 
 ## 🎥 Demo
 
-<video src="https://video.happypartners.app/video.mp4" controls width="860" poster="https://happypartners.app/demo-poster.jpg">
-  Your browser doesn't support embedded video.
-  <a href="https://video.happypartners.app/video.mp4">Watch the demo</a>.
-</video>
+https://github.com/user-attachments/assets/28500fb7-14c2-459d-8340-1e1943ca3729
 
 ## 🎯 Who it's for
 
