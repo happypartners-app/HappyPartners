@@ -5,6 +5,33 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.5.7] — 2026-04-24
+
+### Fixed — Claude Copy All (two regressions)
+- **Wrong-message extraction in historical Claude conversations.** Claude
+  silently renamed its assistant-message class from `.font-claude-message`
+  to `.font-claude-response`; our message container selector stopped matching
+  and Copy All fell through to a "pick the longest text in the whole
+  conversation" fallback — which usually returned a mid-conversation reply
+  instead of the latest turn. The selector now accepts both class names so
+  a future roll-back won't break us again.
+- **Code blocks silently dropped from Copy All.** Claude wraps code-block
+  containers in a Tailwind group class (`group/copy`) that enables the
+  hover-reveal copy button. Our exclude list had a broad `[class*='copy']`
+  pattern that accidentally stripped the entire code block — users copying
+  Claude replies containing fenced code got responses with the prose but
+  none of the code. The exclude list now targets buttons specifically and
+  no longer uses substring wildcards that collide with Tailwind's
+  `group/NAME` convention.
+
+### Changed
+- The "only extract the latest container, never walk back" rule now applies
+  universally to avoid masking genuine empty-latest states (previously the
+  extractor would silently substitute an older turn's text when the latest
+  turn yielded no extractable content — e.g. an Artifact-only response).
+  Empty-latest correctly falls back to stored SQLite materials instead.
+
+
 ## [0.5.5] — 2026-04-24
 
 ### Changed
