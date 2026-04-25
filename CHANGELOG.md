@@ -5,6 +5,23 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.5.8] — 2026-04-25
+
+### Fixed — Composer hotkeys no longer hijack normal text
+- **`@` mention picker triggered mid-word.** Typing an email like
+  `eric@gmail.com` would pop the AI mention picker on the `@`, breaking
+  the input flow. The `@` hotkey now only triggers when it starts a new
+  word (start of input, after whitespace, or after a newline) — matching
+  the convention in Slack, Discord, Notion, Linear, GitHub, and Twitter.
+- **`\` quote picker triggered inside file paths.** Same fix applied:
+  `\` only opens the quote picker at a word boundary, so paths like
+  `C:\Users\foo` are typed as plain text.
+- **`/` template picker triggered inside URLs.** Stricter than `@` and
+  `\` — `/` only triggers at the start of a line (start of input or
+  after a newline). URLs like `https://...` and phrases like `and/or`
+  are typed as plain text instead of opening the template picker.
+
+
 ## [0.5.7] — 2026-04-24
 
 ### Fixed — Claude Copy All (two regressions)
