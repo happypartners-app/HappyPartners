@@ -5,6 +5,22 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.5.9] — 2026-04-28
+
+### Fixed — IME composition no longer breaks Enter-key inputs
+
+CJK users (Chinese, Japanese, Korean) typing through an input method (注音, 拼音, IME) press Enter to commit a candidate from the IME's suggestion popup. Several keydown handlers across the app were intercepting Enter without checking for active IME composition, so picking a candidate would also fire the handler's "submit" action — closing the modal, committing a rename, or inserting a line break before the user actually finished typing the character.
+
+Fixed in four places:
+
+- **Nickname modal** (first-launch + sidebar edit). Pressing Enter to pick a Chinese candidate no longer closes the modal mid-composition. Previously this affected every CJK user on first launch.
+- **Sidebar inline rename** (project + session). Renaming with Chinese input now lets the IME consume Enter for candidate selection without committing the rename prematurely.
+- **Custom prefix editor** (Templates → prefix settings). Enter for picking a CJK candidate no longer triggers a line-break insertion before the candidate is committed.
+- **Dev console password input**. Same guard for consistency, even though passwords rarely use CJK input.
+
+The standard fix in all four locations: check `e.isComposing` (and the legacy `keyCode === 229` fallback) at the top of the keydown handler and return early. The composer input already had this guard from earlier work — these four sites simply weren't covered when added incrementally.
+
+
 ## [0.5.8] — 2026-04-25
 
 ### Fixed — Composer hotkeys no longer hijack normal text
