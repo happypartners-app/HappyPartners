@@ -5,6 +5,23 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.5.10] — 2026-05-01
+
+### Fixed — Composer file attachment UX
+
+Fixes a cluster of related composer-attachment problems that all surfaced as the same vague symptom: "I attached a file and the send button does nothing."
+
+- **Oversize file silent failure.** Files over the size limit reached `serializeFile()` at dispatch time and threw, but the click handler's outer try had no catch — the error became an unhandled promise rejection and the user saw nothing. Now files are pre-validated at upload (drop / paste / attach) and rejected with a visible warning. A defensive try-catch around `serializeFiles()` in the dispatch path also surfaces any error message that slips through (e.g. queue-edit replays of legacy oversize payloads).
+- **Attached files cleared when switching conversations.** Drafts persist `promptText`, references, and quotes across conversation switches, but file payloads were intentionally excluded (binary blobs are too large for localStorage's 5MB limit). That decision still holds across app restarts, but losing files when switching A → B → A within the same app session was a real data-loss surprise. An in-memory `Map` now caches `File` objects per draft key so within-session switching restores them. Cleared on successful dispatch and on session deletion.
+- **File size limit raised from 10MB to 20MB.** 10MB was below every major AI platform's own limit (ChatGPT 20MB, Claude 30MB, Perplexity 25MB, etc.) and rejected legitimate iPhone HEIC photos and 4K screenshots. 20MB matches the most common platform limit and keeps webview-injection latency under 5 seconds per platform.
+- **Uncommon-format warning at upload.** Dragging an FBX, PSD, or similar format used to silently fail inside each AI platform's own validator with no feedback at the HappyPartners level — different platforms would inconsistently accept or reject, and the user would think "drag failed." A new advisory warning lists files whose extension isn't in the common-supported set ("may not be supported by most AI platforms"), without rejecting them — power users can still try edge-case formats their target AI might handle.
+- **Multiple warnings combine instead of overwriting.** Status bar previously showed only the latest warning. Dragging "FBX + 25MB PSD" rendered just the format warning; the size warning that filtered out the PSD was clobbered by the format warning that fired immediately after. All file warnings now collect into a single combined message, separated by ` / `.
+- **Stale format warnings auto-clear when the file is removed.** Removing the chip for a file that triggered the format warning now re-runs validation and clears the warning if no uncommon files remain — instead of leaving "model.fbx may not be supported" sitting in the status bar after the FBX is gone.
+- **Long filenames truncated in status messages.** A 50-character filename used to push the actual error info (size, limit, suggestion) off the visible status bar. Filenames over 20 characters now display as `head…ext.ext` (e.g. `Los-York-Studio….psd`), so the size, limit, and "please use a smaller file" suggestion stay visible.
+
+The cumulative effect: file attachment problems now show a clear, single-line message that names the file (truncated), states the size, names the limit, and suggests a fix — instead of a silent failure that looks like a broken send button.
+
+
 ## [0.5.9] — 2026-04-28
 
 ### Fixed — IME composition no longer breaks Enter-key inputs
