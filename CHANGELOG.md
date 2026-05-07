@@ -5,6 +5,24 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.5.11] — 2026-05-01
+
+### Fixed — External link routing now path-aware
+
+GitHub repo links (and other non-auth content on mixed-purpose hosts) now correctly open in the system browser instead of staying inside the AI tile's webview.
+
+The previous implementation maintained a flat whitelist of "auth provider hosts" — any URL whose hostname matched would stay in-webview, on the assumption that it was part of an OAuth login flow. The list included hosts like `github.com`, `apple.com`, and `microsoft.com` to preserve OAuth redirects routed through them. The unintended side effect: every other path on those hosts also got kept in-webview, so clicking a GitHub repo link inside a Gemini answer would silently navigate the Gemini tile away from Gemini and into GitHub, with no way back except reload.
+
+The whitelist is now path-aware. Pure auth domains (`accounts.google.com`, `appleid.apple.com`, `login.microsoftonline.com`, etc.) still match any path — the entire host is auth, by definition. Mixed-purpose hosts (`github.com`, `apple.com`, `microsoft.com`, `openai.com`, `anthropic.com`, etc.) now only match their actual login / OAuth paths (`/login`, `/oauth/*`, `/sessions`, `/sign-in`, etc.); everything else falls through to the system-browser route.
+
+Both layers that handle external link routing are updated together:
+
+- **`main.js`** — `setWindowOpenHandler` (for `window.open` and `target="_blank"` links) and the `will-navigate` safety net (for SPA navigations via `window.location.href` etc.).
+- **`webview-manager.js`** — the in-webview click interceptor injected into each AI page, which catches `<a href>` clicks before the platform's own JS does anything with them.
+
+Net effect: Gemini login still works exactly as before (`accounts.google.com` is a pure auth host, all paths stay in webview). GitHub repo browsing in any AI's answer now opens in the system browser as intended. Same correction applies to Apple support pages, Microsoft docs, OpenAI marketing pages, etc. — content URLs go external; only login URLs stay in-webview.
+
+
 ## [0.5.10] — 2026-05-01
 
 ### Fixed — Composer file attachment UX
