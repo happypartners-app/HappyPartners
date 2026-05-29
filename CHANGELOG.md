@@ -5,6 +5,47 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.5.12] — 2026-05-29
+
+### Changed — Google sign-in overhaul: dropped the embedded-browser workaround
+
+Google relaxed its "this browser or app may not be secure" embedded-browser detection sometime in 2026-04/05. A controlled experiment (a minimal test app embedding Gemini with zero disguise) confirmed a plain webview now logs into Gemini cleanly — no User-Agent spoofing, no client-hint rewriting, nothing.
+
+So the entire workaround we had built up to defeat that block is now not just unnecessary but actively harmful: the fake "I'm Android Chrome 89 / desktop Chrome 146" User-Agent it injected no longer matched the honest client-hint headers once detection eased, and *that inconsistency* is exactly what trips bot-detection (it was also the root of the Cloudflare verification loops on Grok / Perplexity / Copilot).
+
+This release removes the disguise and lets every embedded login present a single, honest, self-consistent identity:
+
+- The Android-UA / Sec-CH-UA header rewriting for Google domains is gated behind a single `GOOGLE_AUTH_WORKAROUND` switch (default **off**). Flip it back on in one line if Google ever re-tightens.
+- The desktop-Chrome User-Agent override on the Gemini / AI Studio tiles is removed — they now use the honest default UA, which still renders desktop layout.
+- The OAuth popup no longer spoofs a Chrome UA either, so the popup and the tile that consumes the resulting cookie present the same identity.
+
+Net effect: **Gemini and AI Studio sign-in work without any disguise**, and the long-standing fingerprint inconsistencies that caused intermittent Cloudflare loops are gone.
+
+### Fixed — "Continue with Google" now works for Claude
+
+Claude's Google sign-in never completed before — it always ended on "There was an error logging you in," forcing users onto email login. The cause was architectural, not cosmetic: Claude's OAuth hands its result back to the originating page via `window.opener.postMessage`, but the app opened auth popups as *detached* windows with no opener link, so the result could never be delivered.
+
+Auth popups are now created as true child windows (preserving the `window.opener` relationship and inheriting the tile's session), so both postMessage-style and redirect-style OAuth flows complete. Claude "Continue with Google" works for the first time, and other providers' popup logins (Google / Apple / Microsoft / GitHub across all tiles) are more robust as a result.
+
+### Fixed — Premature "done" on Gemini, ChatGPT, and Claude
+
+The status badge sometimes flipped to "done" while the AI was still typing — most visibly on long answers, where the badge said finished a second after the model started. Three separate root causes, one symptom:
+
+- **Gemini** — the platform had silently restructured its DOM, moving the `send-button` / `stop` classes onto a wrapper element. Our stop-button selector matched nothing, so streaming was never detected and the round was concluded the moment any preamble text appeared. Selectors updated to the new structure, plus a dedicated streaming indicator tied to the wrapper's generation-only `stop` class.
+- **ChatGPT** — completion was gated on a `.result-streaming` element that only appears once the *answer* renders, not during the early "Thinking…" phase. While reasoning, the monitor saw no streaming indicator and ingested the 8-character preamble as the final answer. It now falls back to the stop button, which is present throughout generation.
+- **Claude** — same shape as ChatGPT (its loading-background indicator is absent during early tool-use / first tokens). Streaming detection now treats the stop button *or* the loading background as "still generating," so neither early-phase gap nor an idle empty composer is misread.
+
+Also folded in the reasoning / tool-use completion hardening (a one-tick stability confirmation after a DOM stream-end signal) so a brief pause between reasoning and answer no longer ends the round early.
+
+### Fixed — File upload no longer fails silently
+
+When a file upload stalled, the send path used to wait out a 30-second ceiling and then quietly press on, surfacing later as a confusing "couldn't find the send button." A stuck upload now stops with a clear, actionable message — "file upload stuck, retry or remove the attachment" — instead of a silent lock.
+
+### Internal — Dev-only diagnostics pipeline
+
+Added an observability layer that is **only active in internal / dev builds** and ships completely inert in the public app (gated four ways; the trace table is never even created for normal users, and no data is collected). It records metadata-only traces of send / upload / completion events, self-checks every "done" conclusion against what the page actually does next, and includes a quick in-app bug-report panel — purely a maintenance tool for diagnosing the stability issues above.
+
+
 ## [0.5.11] — 2026-05-01
 
 ### Fixed — External link routing now path-aware
