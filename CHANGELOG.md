@@ -5,6 +5,27 @@ All notable changes to HappyPartners are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com).
 Versions follow [Semantic Versioning](https://semver.org).
 
+## [0.6.0] — 2026-06-01
+
+### Added — 文心一言 (ERNIE Bot) joins the lineup
+
+Baidu's 文心一言 is now a selectable assistant, bringing the roster to 17 models side by side in one window.
+
+### Improved — Steadier sending, status, and file uploads
+
+This release smooths out the rough edges that showed up most on the Chinese-language assistants:
+
+- **Messages that occasionally wouldn't send** — a handful of platforms had quietly reworked their page structure, so the controls the app relied on no longer matched. Refreshed across the board.
+- **A status badge that flipped early or stuck late** — platforms with no detectable "stop" control could conclude a turn too soon (or never). These now fall back to network + text-stability detection, so the badge tracks the real state of the reply.
+- **Replies that picked up a model's "thinking" text** — on assistants that render a separate reasoning section, capture sometimes grabbed the reasoning instead of the final answer. Body extraction now excludes the thinking section.
+
+File uploads are also more reliable on the assistants that use a format-specific upload menu (document / image / audio / video), with an added safety net so an attachment no longer fails to register without warning.
+
+### Internal — Extended dev-only diagnostics
+
+The internal-only diagnostics layer (completely inert in the public build, no data collected) gained automatic capture of composer markup when a selector misses, plus a few hardening tweaks. Purely a maintenance aid.
+
+
 ## [0.5.12] — 2026-05-29
 
 ### Changed — Google sign-in overhaul: dropped the embedded-browser workaround
